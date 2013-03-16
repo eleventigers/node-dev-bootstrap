@@ -1,6 +1,7 @@
 Vagrant::Config.run do |config|
-  config.vm.box = "base"
-
+  config.vm.box       = 'precise32'
+  config.vm.box_url   = 'http://files.vagrantup.com/precise32.box'
+  config.vm.host_name = 'node-dev-box'
   config.vm.forward_port 3000, 3000
 
   config.vm.share_folder "app", "/home/vagrant/app", "app"
@@ -10,15 +11,13 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe "nodejs"
-    chef.add_recipe "mongodb-debs"
+    chef.add_recipe "mongodb"
     chef.add_recipe "redis-server"
+    chef.add_recipe 'git'
     chef.json = {
       "nodejs" => {
-        "version" => "0.8.18"
-        # uncomment the following line to force
-	# recent versions (> 0.8.5) to be built from
-	# the source code
-	# , "from_source" => true
+        "version" => "0.10.0"
+        # "from_source" => true
       }
     }
   end

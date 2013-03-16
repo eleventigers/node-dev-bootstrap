@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-path = node[:nodejs][:version]>"0.5.0"?
+path = node[:nodejs][:version]>"0.5.0" || node[:nodejs][:version]=="0.10.0" ?
             "http://nodejs.org/dist/v#{node[:nodejs][:version]}/":
             "http://nodejs.org/dist/"
 
